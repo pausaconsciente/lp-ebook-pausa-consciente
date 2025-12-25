@@ -20,6 +20,24 @@
 
     gtag('config', 'AW-398940866');
   </script>
+  <!-- Event snippet for Iniciar finalização de compra conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof (url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+        'send_to': 'AW-398940866/g9UVCL_IodcbEMK1nb4B',
+        'value': 3.0,
+        'currency': 'BRL',
+        'event_callback': callback
+      });
+      return false;
+    }
+  </script>
 
 
 </head>
@@ -45,7 +63,7 @@
     </div>
 
     <a href="https://www.amazon.com.br/Medita%C3%A7%C3%A3o-para-Pessoas-Sem-Tempo-ebook/dp/B0FTCL2H8Z" target="_blank"
-      class="mt-10 inline-block bg-[#F3C969] hover:bg-[#e7b84e] text-[#133B5C] font-bold text-lg py-4 px-10 rounded-xl shadow-lg transition-all hover:scale-105">
+      class="cta-conversao mt-10 inline-block bg-[#F3C969] hover:bg-[#e7b84e] text-[#133B5C] font-bold text-lg py-4 px-10 rounded-xl shadow-lg transition-all hover:scale-105">
       Comprar Agora
     </a>
 
@@ -98,7 +116,7 @@
       </h3>
 
       <a href="https://www.amazon.com.br/Medita%C3%A7%C3%A3o-para-Pessoas-Sem-Tempo-ebook/dp/B0FTCL2H8Z" target="_blank"
-        class="inline-block bg-[#F3C969] hover:bg-[#e7b84e] text-[#133B5C] font-bold text-xl py-4 px-12 rounded-2xl shadow-xl transition-all hover:scale-110">
+        class="cta-conversao inline-block bg-[#F3C969] hover:bg-[#e7b84e] text-[#133B5C] font-bold text-xl py-4 px-12 rounded-2xl shadow-xl transition-all hover:scale-110">
         Quero Começar Hoje
       </a>
 
@@ -110,6 +128,18 @@
   <footer class="text-center text-gray-500 text-sm py-8">
     © 2025 — Meditação para Pessoas Sem Tempo
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.cta-conversao').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault(); // impede navegação imediata
+          const url = this.href;
+          gtag_report_conversion(url);
+        });
+      });
+    });
+  </script>
 
 </body>
 
