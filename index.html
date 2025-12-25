@@ -24,17 +24,17 @@
 In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
   <script>
     function gtag_report_conversion(url) {
-      var callback = function () {
-        if (typeof (url) != 'undefined') {
-          window.location = url;
-        }
-      };
       gtag('event', 'conversion', {
         'send_to': 'AW-398940866/g9UVCL_IodcbEMK1nb4B',
         'value': 3.0,
-        'currency': 'BRL',
-        'event_callback': callback
+        'currency': 'BRL'
       });
+
+      // Se tiver URL, abre nova aba
+      if (url) {
+        window.open(url, '_blank');
+      }
+
       return false;
     }
   </script>
@@ -130,12 +130,11 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.cta-conversao').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-          e.preventDefault(); // impede navegação imediata
-          const url = this.href;
-          gtag_report_conversion(url);
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".cta-conversao").forEach(btn => {
+        btn.addEventListener("click", e => {
+          // deixa abrir a nova aba sem bloquear
+          gtag_report_conversion(btn.href);
         });
       });
     });
